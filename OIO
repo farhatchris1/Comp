@@ -1,0 +1,464 @@
+import discord
+from discord import Color
+from discord.ext import commands
+from discord.ext.commands import cooldown, BucketType
+from discord import app_commands
+from discord.app_commands import AppCommandError
+from discord.utils import get
+from discord import Interaction
+from urllib.parse import quote_plus
+import random
+import asyncio
+import os
+import typing
+import colorama
+from colorama import Fore
+import requests
+
+intents = discord.intents=discord.Intents.all()
+bot = commands.Bot(command_prefix='!',intents=intents)
+tree=bot.tree
+token = os.environ.get("TOKEN")
+
+#------------------------------------------------------------buttons start--------------------------------------------------------------------
+class mc(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.minecraft.net/en-us/login'
+        self.add_item(discord.ui.Button(label='Minecraft login.', url=url1))
+class steampowered(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://store.steampowered.com/login/'
+        self.add_item(discord.ui.Button(label='Steam login.', url=url1))
+
+class val(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://auth.riotgames.com/login'
+        self.add_item(discord.ui.Button(label='Riot login.', url=url1))
+class fn(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.epicgames.com/id/login/epic'
+        self.add_item(discord.ui.Button(label='Epic login.', url=url1))
+class ori(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.origin.com/can/en-us/store'
+        self.add_item(discord.ui.Button(label='Origin login.', url=url1))
+class ubi(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://ubisoftconnect.com/en-US/'
+        self.add_item(discord.ui.Button(label='Ubisoft login.', url=url1))
+class rocks(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://signin.rockstargames.com/signin/user-form?cid=rsg'
+        self.add_item(discord.ui.Button(label='Rockstar login.', url=url1))
+class nord(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://account.nordvpn.com/oauth2/login'
+        self.add_item(discord.ui.Button(label='NordVpn login.', url=url1))
+class netf(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.netflix.com/login'
+        self.add_item(discord.ui.Button(label='Netflix login.', url=url1))
+class hboo(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://play.hbomax.com/signIn'
+        self.add_item(discord.ui.Button(label='Hbo login.', url=url1))
+class crunch(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.crunchyroll.com/login'
+        self.add_item(discord.ui.Button(label='CrunchyRoll login.', url=url1))
+class funi(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.funimation.com/log-in/'
+        self.add_item(discord.ui.Button(label='Funimation login.', url=url1))
+class disney(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.disneyplus.com/login'
+        self.add_item(discord.ui.Button(label='Disney+ login.', url=url1))
+class twit(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.disneyplus.com/login'
+        self.add_item(discord.ui.Button(label='Twitch.tv login.', url=url1))
+class nvid(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://login.nvgs.nvidia.com/v1/login/identifier?key=eyJhbGciOiJIUzI1NiJ9.eyJzZSI6IjBNR1kiLCJ0b2tlbklkIjoiMTAzMTM4MzEyNzU4ODM2ODM4NCIsIm90IjoiMTAzMTM4MzEyNzYwNTE0NTYwMCIsImV4cCI6MTY2NjA1NzY5OSwiaWF0IjoxNjY1OTcxMjk5LCJqdGkiOiJmZTU3N2Q0Ni05OTkxLTRhMjgtYjJlYy00YzViMWI5OGRkM2QifQ.MM7JYA3DbRHge1APYSJ7Z4SfWRNL2R0PwRyefKeHD8k&client_id=310670206635606961&prompt=default&context=initial&theme=Noir&preferred_nvidia=true&locale=en-US'
+        self.add_item(discord.ui.Button(label='Nvidia login.', url=url1))
+class dash(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.doordash.com/en-CA'
+        self.add_item(discord.ui.Button(label='Doordash login.', url=url1))
+class syn(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://x.synapse.to/'
+        self.add_item(discord.ui.Button(label='Synapse login.', url=url1))
+class ware(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://dashboard.script-ware.com/'
+        self.add_item(discord.ui.Button(label='Script-ware login.', url=url1))
+class sirh(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://sirhurt.net/login/login.php?stopdembois=37d6ebdf495ad43dec8570bedb3297d9'
+        self.add_item(discord.ui.Button(label='Sirhurt login.', url=url1))
+class hul(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://auth.hulu.com/web/login'
+        self.add_item(discord.ui.Button(label='Hulu login.', url=url1))
+class slingg(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.sling.com/'
+        self.add_item(discord.ui.Button(label='Sling login.', url=url1))
+class grub(discord.ui.View):
+    def __init__(self):
+        super().__init__()
+        url1 = 'https://www.grubhub.com/login'
+        self.add_item(discord.ui.Button(label='Grubhub login.', url=url1))
+#----------------------------------------------------------buttons end--------------------------------------------------------------------
+
+#-------------------------------------------------QOL stuff starts----------------------------------------------------------------------------
+@bot.event
+async def on_ready():
+    activity = discord.Game(name=f"support discord.gg/channels \n Cached Users: {len(bot.users)} Guilds: {len(bot.guilds)}", type=3)
+    await bot.change_presence(status=discord.Status.idle, activity=activity)
+    print("Bot is ready!")
+ #---------------------------------------------------QOL stuff ends-------------------------------------------------------------------------- 
+
+#---------------------------------------------------------txts start-------------------------------------------------------------------------
+with open('rblx.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words = list(map(str,text.split()))
+
+with open('mc.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words2 = list(map(str,text.split()))
+with open('steam.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words3 = list(map(str,text.split()))
+with open('valorant.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words4 = list(map(str,text.split()))
+with open('epic.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words5 = list(map(str,text.split()))
+with open('origin.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words6 = list(map(str,text.split()))
+with open('ubisoft.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words7 = list(map(str,text.split()))
+with open('rockstar.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words8 = list(map(str,text.split()))
+with open('nord.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words9 = list(map(str,text.split()))
+with open('netflix.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words10 = list(map(str,text.split()))
+with open('hbo.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words11 = list(map(str,text.split()))
+with open('crunchyroll.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words12 = list(map(str,text.split()))
+with open('funimation.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words13 = list(map(str,text.split()))
+with open('disney.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words14 = list(map(str,text.split()))
+with open('twitch.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words15 = list(map(str,text.split()))
+with open('nvidia.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words16 = list(map(str,text.split()))
+with open('doordash.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words17 = list(map(str,text.split()))
+with open('synapse.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words18 = list(map(str,text.split()))
+with open('script-ware.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words19 = list(map(str,text.split()))
+with open('script-ware.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words20 = list(map(str,text.split()))
+with open('hulu.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words21 = list(map(str,text.split()))
+with open('sling.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words22 = list(map(str,text.split()))
+with open('grubhub.txt','r',encoding='utf8') as file:
+   text = file.read()
+   words22 = list(map(str,text.split()))
+#---------------------------------------------------------------------------txts end----------------------------------------------------------
+
+
+  
+#--------------------------------------------------------gen commands start-------------------------------------------------------------------
+
+def paid_bypass(interaction:discord.Interaction):
+       if discord.utils.get(interaction.user.roles, name='Paid-Gen-Customer'):
+        return commands.Cooldown(1,30)
+       if discord.utils.get(interaction.user.roles, name='Poland'):
+            return commands.Cooldown(1,5)
+       return commands.Cooldown(1,600)
+#---funimation
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def funimation(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words13)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/952458421913935893/1023435251172773960/funimation-intro.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=funi())
+#---disney+
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def disneyplus(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words14)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1003876919416201296/1023439517321015346/disney-plus-disney-plus-day.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=disney())
+#--doordash
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def doordash(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words17)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1027000895814242458/1031388751169077328/door-dash-loading-door-dash.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=dash())
+#--grubhub
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def grubhub(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words17)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031415955743584307/grubhub-grubhub-ad.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=grub())
+
+#--sling
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def sling(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(word22)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031411778556547162/th.webp")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=slingg())
+#--twitch
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def twitch(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words15)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1027000895814242458/1031382243672862740/twitch-logo.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=twit())
+  
+#--synapse
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def synapse(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words18)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031398751786504212/new-ui-synapse-x.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=syn())
+
+#--sirhurt
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def sirhurt(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words20)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031400662879187037/sirhurt-roblox-exploit.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=sirh())
+#-- hulu
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def hulu(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words21)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031410897446514708/lillard-hulu.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=hul())
+  
+#--script-ware
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def scriptware(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words19)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031399237692432545/scriptware-synapse.giff")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=ware())
+
+#---crunchyroll
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def crunchyroll(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words12)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/952458421913935893/1023434822594605106/crunchyroll-crunchyroll-exclusives.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+
+    await interaction.user.send(embed=embed,view=crunch())
+  
+#--steam
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def steam(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words3)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for using our gen!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1010995614881959966/1023094026884354119/steam.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+  
+    await interaction.user.send(embed=embed,view=steampowered())
+
+
+#--fortnite
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Paid-Gen-Customer")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def fortnite(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words5)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for buying! ❤️  using latest bot version 🤖')
+    embed.set_thumbnail(url="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gifservice.fr%2Fimg%2Fgif-vignette-small%2Fd585ff19c95cd06c4751adf847bd6148%2F137417-logo-jeux-video-fortnite-battle-royale-logo.gif&f=1&nofb=1&ipt=1b9096fe41a4bebfe3c8d459cd5be8fa3924e93f3420d2f1e50444fee334ef7c&ipo=images")
+  
+    await interaction.response.send_message("**Sending your account!**")
+  
+    await interaction.user.send(embed=embed,view=fn())
+
+#--nvidia
+@app_commands.checks.dynamic_cooldown(paid_bypass)
+@app_commands.checks.has_role("Group-Gen")
+@tree.command(description="Generate an account!",guild=discord.Object(id=947669854629003324))
+async def nvidia(interaction:discord.Interaction):
+    embed =  discord.Embed(title="**Account Found**",description=(f"```{((random.choice(words16)))}```"),color=0x2E2E2E)
+    embed.set_footer(text=f'Whitelisted as {interaction.user} thanks for buying!')
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/984659425908387870/1031383741463019551/nvidia-nvidia-gif.gif")
+  
+    await interaction.response.send_message("**Sending your account!**")
+  
+    await interaction.user.send(embed=embed,view=nvid())
+
+
+#-------------------------------------------------------gen commands end------------------------------------------------------------------
+
+
+
+#-----------------------------------------------------sync command starts----------------------------------------------------------------- 
+@bot.command()
+@commands.guild_only()
+@app_commands.checks.has_role("Poland")
+async def sync(
+  ctx: commands.Context, guilds: commands.Greedy[discord.Object], spec: typing.Optional[typing.Literal["~", "*", "^"]] = None) -> None:
+    if not guilds:
+        if spec == "~":
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == "*":
+            ctx.bot.tree.copy_global_to(guild=ctx.guild)
+            synced = await ctx.bot.tree.sync(guild=ctx.guild)
+        elif spec == "^":
+            ctx.bot.tree.clear_commands(guild=ctx.guild)
+            await ctx.bot.tree.sync(guild=ctx.guild)
+            synced = []
+        else:
+            synced = await ctx.bot.tree.sync()
+
+        await ctx.send(
+            f"Synced {len(synced)} commands {'globally' if spec is None else 'to the current guild.'}"
+        )
+        return
+
+    ret = 0
+    for guild in guilds:
+        try:
+            await ctx.bot.tree.sync(guild=guild)
+        except discord.HTTPException:
+            pass
+        else:
+            ret += 1
+
+    await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
+#---------------------------------------------------------sync command ends-------------------------------------------------------------------
+
+
+
+#------------------------------------------------------ERROR HANDLERS START------------------------------------------------------------------
+@tree.error
+async def on_ubi_error(interaction: Interaction, error: AppCommandError):
+  if isinstance(error, app_commands.CommandOnCooldown):
+    await interaction.response.send_message(f"**{str(error)}**", ephemeral=True)
+  elif isinstance(error, app_commands.MissingRole):
+    await interaction.response.send_message("**User is not whitelisted join the group to use gen! https://web.roblox.com/groups/14858193/rchived#!/about**", ephemeral=True)
+    
+@fortnite.error
+async def on_fn_error(interaction: Interaction, error: AppCommandError):
+  if isinstance(error, app_commands.CommandOnCooldown):
+    await interaction.response.send_message(f"**{str(error)}**", ephemeral=True)
+  elif isinstance(error, app_commands.MissingRole):
+    await interaction.response.send_message("**Make a ticket and buy to use the fortnite command!**", ephemeral=True)
+#------------------------------------------------------ERROR HANDLERS STOP---------------------------------------------------------------
+bot.run("MTA0MzYyNjk2Mjk5MzgxNTY3Mw.GUZQqC.k3jZFH54ckJvdwsx115hNaAk2eC2xtGwvob7mU")
